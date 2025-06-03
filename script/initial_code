@@ -1,0 +1,33 @@
+-- Switch to master database
+USE master;
+GO
+
+-- Create the database only if it does not exist
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'NewDATABASE')
+BEGIN
+    CREATE DATABASE NewDATABASE;
+END
+GO
+
+-- Switch to the new database
+USE NewDATABASE;
+GO
+
+-- Create schemas only if they do not exist
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'bronze')
+BEGIN
+    EXEC('CREATE SCHEMA bronze');
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'silver')
+BEGIN
+    EXEC('CREATE SCHEMA silver');
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'gold')
+BEGIN
+    EXEC('CREATE SCHEMA gold');
+END
+GO
